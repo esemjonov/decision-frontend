@@ -11,3 +11,8 @@ export async function getAllCustomers() {
     const response = await client.get('/customers');
     return response.data;
 }
+
+export async  function createCreditScore(creditScoreDetails) {
+    const response = await client.post('/creditscore', creditScoreDetails);
+    return response.data;
+}
