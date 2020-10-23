@@ -6,12 +6,12 @@
                   <v-row>
 
                     <div>
-                      <v-icon color="black"> mdi-accessibility</v-icon>
+                      <v-icon color="black"> mdi-cards-diamond</v-icon>
                       identityCode: {{ customer.identityCode}}
                     </div>
                     <div>
                       <v-icon color="black"> mdi-currency-eur</v-icon>
-                      {{ customer.creditModifier}}
+                      Free money: {{ customer.creditModifier}}
                     </div>
 
                   </v-row>

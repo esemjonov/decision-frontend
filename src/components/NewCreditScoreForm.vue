@@ -47,7 +47,7 @@
         <DashedAccentLine>
           <div>
             <tilted-button
-                value="CLOSE"
+                value="Reset"
                 text
                 @click="closeDialog"
             ></tilted-button>
@@ -61,7 +61,14 @@
         </DashedAccentLine>
       </v-card-actions>
 
+
+    <div>
+      <v-icon color="green"> mdi-currency-eur</v-icon>
+      Approved amount: {{ scoringResult}}
+    </div>
+
   </v-card>
+
 
 </template>
 
@@ -70,22 +77,25 @@ import {createCreditScore} from '@/network';
 import TiltedAccentTitle from "@/components/TiltedAccentTitle";
 import TiltedButton from "@/components/TiltedButton";
 import DashedAccentLine from "@/components/DashedAccentLine";
+//import CreditScoreItem from "@/components/CreditScoreItem";
 
 const getInitialData = () => ({
   identityCode: null,
   loanAmount: null,
   loanPeriodMonths: null,
-  isValid: true
+  isValid: true,
+  scoringResult: 1000
 });
 
 
 export default {
   props: {
-    activator: String
+    activator: String,
   },
   components: {TiltedAccentTitle, TiltedButton, DashedAccentLine},
   name: "NewCreditScoreForm",
   data: () => getInitialData(),
+
   methods: {
     handleSubmit(creditscore) {
       createCreditScore({
@@ -104,21 +114,29 @@ export default {
           loanPeriodMin: 0
         },
         status: "string"
-      }).then(() => {
+      }).then((response) => {
+        console.log(this.identityCode)
+        console.log(response)
+        console.log(response.status)
+        this.scoringResult = response;
         this.dialog = false;
         this.resetFormFields();
+
+
+
       }).catch(error => {
         creditscore.output = error;
       })
-      console.log(creditscore)
+
     },
     closeDialog() {
       this.dialog = false;
       this.resetFormFields();
     },
+
     resetFormFields() {
       Object.assign(this.$data, getInitialData());
-      this.$refs.form.resetValidation()
+      //this.$refs.form.resetValidation()
     }
   }
 };
