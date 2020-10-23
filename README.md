@@ -1,4 +1,7 @@
-# decision-frontend
+## decision-frontend Run
+```
+npm run serve
+```
 
 ## Project setup
 ```
@@ -22,3 +25,7 @@ yarn lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+
+###INSTALLS
+npm install axios
