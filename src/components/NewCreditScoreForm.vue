@@ -1,7 +1,7 @@
 <template v-slot:activator="{ on, attrs }">
   <v-card>
     <v-app-bar flat color="#FEE616">
-      <TiltedAccentTitle :value="'Add a new event'.toUpperCase()"></TiltedAccentTitle>
+      <TiltedAccentTitle :value="'Apply for Loan'.toUpperCase()"></TiltedAccentTitle>
     </v-app-bar>
 
 
@@ -61,10 +61,24 @@
         </DashedAccentLine>
       </v-card-actions>
 
-
-    <div>
-      <v-icon color="green"> mdi-currency-eur</v-icon>
-      Approved amount: {{ scoringResult}}
+    <div v-if="scoringResult !== null">
+    <v-app-bar flat color="#FEE616">
+      <TiltedAccentTitle :value="'Result'.toUpperCase()"></TiltedAccentTitle>
+    </v-app-bar>
+    <v-card  >
+      <div>
+        <v-icon color="green"> mdi-currency-eur</v-icon>
+        Status: {{ scoringResult}}
+      </div>
+      <div>
+        <v-icon color="green"> mdi-currency-eur</v-icon>
+        Recommended amount: {{ scoringAmount}}
+      </div>
+      <div>
+        <v-icon color="green"> mdi-calendar-alert</v-icon>
+        Recommended period: {{ scoringPeriod}}
+      </div>
+    </v-card>
     </div>
 
   </v-card>
@@ -77,14 +91,16 @@ import {createCreditScore} from '@/network';
 import TiltedAccentTitle from "@/components/TiltedAccentTitle";
 import TiltedButton from "@/components/TiltedButton";
 import DashedAccentLine from "@/components/DashedAccentLine";
-//import CreditScoreItem from "@/components/CreditScoreItem";
+
 
 const getInitialData = () => ({
   identityCode: null,
   loanAmount: null,
   loanPeriodMonths: null,
   isValid: true,
-  scoringResult: 1000
+  scoringResult: null,
+  scoringAmount: null,
+  scoringPeriod: null,
 });
 
 
@@ -115,16 +131,12 @@ export default {
         },
         status: "string"
       }).then((response) => {
-        console.log(this.identityCode)
-        console.log(response)
-        console.log(response.status)
-        this.scoringResult = response;
+        this.scoringResult = response.status;
+        this.scoringAmount = response.approvedLoanAmount;
+        this.scoringPeriod = response.approvedLoanPeriodMonths;
         this.dialog = false;
-        this.resetFormFields();
-
-
-
-      }).catch(error => {
+        //this.resetFormFields();
+    }).catch(error => {
         creditscore.output = error;
       })
 
