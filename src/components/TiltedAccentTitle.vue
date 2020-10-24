@@ -16,6 +16,7 @@ export default {
 </script>
 
 <style scoped>
+
 .tilted-accent-title {
   background-color: black;
   color: white;

@@ -1,42 +1,48 @@
 <template>
-  <div>
-
-
-                <div>
-
-                  <ul>
-                    <v-row>
-                      <div>
-
-                        <v-icon color="black"> mdi-cards-diamond</v-icon>
-                        identityCode:  {{customer.identityCode}}
-
-                      </div>
-
-
-
-                      <div>
-                        <v-icon color="green"> mdi-currency-eur</v-icon>
-                        Free money: {{customer.creditModifier}}
-                      </div>
-
-                    </v-row>
-
-                  </ul>
-
-                </div>
-
-  </div>
+  <v-card
+      class="mx-auto customer-card"
+      color="black"
+      dark
+      max-width="300"
+  >
+    <v-card-title class="customer-card-title">
+      {{customer.identityCode}}
+    </v-card-title>
+    <v-card-text class="customer-body">
+      <ul class="customer-details-list">
+        <li>
+          <v-icon color="green"> mdi-currency-eur</v-icon>
+          Free money: {{customer.creditModifier}}
+        </li>
+      </ul>
+    </v-card-text>
+  </v-card>
 </template>
 
 <script>
-
 export default {
   name: "CustomerListItem",
   props: {
     customer: Object,
   }
+}
+</script>
 
+
+<style scoped>
+
+.customer-card {
+  display: block;
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
-</script>
+.customer-card-title {
+  word-break: unset;
+}
+
+.customer-details-list {
+  list-style-type: none;
+}
+</style>

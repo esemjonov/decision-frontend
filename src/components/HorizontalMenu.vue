@@ -14,18 +14,16 @@
   </v-app-bar>
 </template>
 
-
 <script>
-
 export default {
   name: 'HorizontalMenu',
   components: {
-
   }
 }
 </script>
 
 <style scoped>
+
 .page-title {
   background-color: black;
   clip-path: polygon(3% 0%, 100% 0%, 97% 100%, 0% 100%);

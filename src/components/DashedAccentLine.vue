@@ -16,7 +16,7 @@ export default {
 .dashed-accent-line {
   display: flex;
   align-items: center;
-  padding: 30px 0;
+  padding: 10px 0;
   width: 100%;
 }
 

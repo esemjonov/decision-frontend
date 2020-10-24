@@ -3,8 +3,6 @@
     <v-app-bar flat color="#FEE616">
       <TiltedAccentTitle :value="'Apply for Loan'.toUpperCase()"></TiltedAccentTitle>
     </v-app-bar>
-
-
     <v-card-text>
       <v-form v-model="isValid">
         <v-container>
@@ -37,61 +35,67 @@
                   required
               ></v-text-field>
             </v-col>
-
           </v-row>
         </v-container>
       </v-form>
     </v-card-text>
-
-      <v-card-actions>
-        <DashedAccentLine>
-          <div>
-            <tilted-button
-                value="Reset"
-                text
-                @click="closeDialog"
-            ></tilted-button>
-            <TiltedButton
-                value="ADD NEW Credit Application"
-                :disabled="!isValid"
-                text
-                @click="handleSubmit">
-            </TiltedButton>
-          </div>
-        </DashedAccentLine>
-      </v-card-actions>
-
+    <v-card-actions>
+      <DashedAccentLine>
+        <div>
+          <tilted-button
+              value="Reset"
+              text
+              @click="closeDialog"
+          ></tilted-button>
+          <TiltedButton
+              value="ADD NEW Credit Application"
+              :disabled="!isValid"
+              text
+              @click="handleSubmit">
+          </TiltedButton>
+        </div>
+      </DashedAccentLine>
+    </v-card-actions>
     <div v-if="scoringResult !== null">
-    <v-app-bar flat color="#FEE616">
-      <TiltedAccentTitle :value="'Result'.toUpperCase()"></TiltedAccentTitle>
-    </v-app-bar>
-    <v-card  >
-      <div>
-        <v-icon color="green"> mdi-currency-eur</v-icon>
-        Status: {{ scoringResult}}
-      </div>
-      <div>
-        <v-icon color="green"> mdi-currency-eur</v-icon>
-        Recommended amount: {{ scoringAmount}}
-      </div>
-      <div>
-        <v-icon color="green"> mdi-calendar-alert</v-icon>
-        Recommended period: {{ scoringPeriod}}
-      </div>
-    </v-card>
+      <v-app-bar flat color="#FEE616">
+        <TiltedAccentTitle :value="'Result'.toUpperCase()"></TiltedAccentTitle>
+      </v-app-bar>
+      <v-card
+          class="mx-auto scoring-result-card"
+          color="black"
+          dark
+          max-width="300"
+      >
+        <v-card-title class="{results-card-title}">
+          <div v-if ="scoringResult === 'Accepted'" class="green--text">{{scoringResult}}</div>
+          <div v-else class="red--text">{{scoringResult}}</div>
+        </v-card-title>
+        <v-card>
+          <ul>
+            <li>
+              <v-icon color="green"> mdi-</v-icon>
+              Status: {{ scoringResult}}
+            </li>
+            <li>
+              <v-icon color="green"> mdi-currency-eur</v-icon>
+              Recommended amount: {{ scoringAmount}}
+            </li>
+            <li>
+              <v-icon color="green"> mdi-calendar-alert</v-icon>
+              Recommended period: {{ scoringPeriod}}
+            </li>
+          </ul>
+        </v-card>
+      </v-card>
     </div>
-
   </v-card>
-
-
 </template>
 
 <script>
-import {createCreditScore} from '@/network';
+import {createCreditScore} from "@/network";
 import TiltedAccentTitle from "@/components/TiltedAccentTitle";
 import TiltedButton from "@/components/TiltedButton";
 import DashedAccentLine from "@/components/DashedAccentLine";
-
 
 const getInitialData = () => ({
   identityCode: null,
@@ -103,7 +107,6 @@ const getInitialData = () => ({
   scoringPeriod: null,
 });
 
-
 export default {
   props: {
     activator: String,
@@ -111,7 +114,6 @@ export default {
   components: {TiltedAccentTitle, TiltedButton, DashedAccentLine},
   name: "NewCreditScoreForm",
   data: () => getInitialData(),
-
   methods: {
     handleSubmit(creditscore) {
       createCreditScore({
@@ -136,28 +138,28 @@ export default {
         this.scoringPeriod = response.approvedLoanPeriodMonths;
         this.dialog = false;
         //this.resetFormFields();
-    }).catch(error => {
+      }).catch(error => {
         creditscore.output = error;
       })
-
     },
     closeDialog() {
       this.dialog = false;
       this.resetFormFields();
     },
-
     resetFormFields() {
       Object.assign(this.$data, getInitialData());
-      //this.$refs.form.resetValidation()
     }
   }
 };
 </script>
 
 <style>
-.list {
-  text-align: left;
-  max-width: 750px;
-  margin: auto;
+
+.scoring-result-card {
+  display: block;
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
+
 </style>

@@ -50,7 +50,6 @@ export default {
 .tilted-button.lg {
   font-size: 2em;
   clip-path: polygon(5% 0%, 100% 0%, 95% 100%, 0% 100%);
-
 }
 
 </style>
