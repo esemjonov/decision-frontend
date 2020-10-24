@@ -1,28 +1,26 @@
 <template>
   <v-app-bar
       app
-      src="../assets/tinyepicgalaxies.jpg"
+      src="../assets/money_resized.jpg"
       dark
       prominent
       flat
   >
     <v-toolbar-title class="page-title">
-      <h3 class="page-name text-uppercase">Game scheduler</h3>
-      <span class="text-caption font-weight-light">you can play alone but don't have to!</span>
+      <h3 class="page-name text-uppercase">Inbank test task</h3>
+      <span class="text-caption font-weight-light">You can take a loan</span>
     </v-toolbar-title>
     <v-spacer></v-spacer>
-    <TiltedButton value="Sign out"/>
   </v-app-bar>
 </template>
 
 
 <script>
-import TiltedButton from "./TiltedButton";
 
 export default {
   name: 'HorizontalMenu',
   components: {
-    TiltedButton
+
   }
 }
 </script>
