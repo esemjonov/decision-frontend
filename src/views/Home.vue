@@ -24,11 +24,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-
-.center {
-  text-align: center;
-}
-
-</style>
